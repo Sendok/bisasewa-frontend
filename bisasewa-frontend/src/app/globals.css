@@ -120,3 +120,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+[data-radix-tooltip-arrow] {
+  fill: #1B2845 !important;
+}
+
+.radix-tooltip-arrow {
+  fill: #1B2845 !important;
+}
