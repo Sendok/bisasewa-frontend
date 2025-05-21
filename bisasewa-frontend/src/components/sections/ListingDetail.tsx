@@ -178,7 +178,10 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
 
         {/* Booking Card */}
         <div className="lg:col-span-1">
-          <div className="lg:sticky lg:top-8 rounded-xl border border-gray-200 p-6 shadow-sm relative">
+          <div
+            className="rounded-xl border border-gray-200 p-6 shadow-sm relative"
+        
+          >
             {/* Harga & Rating */}
             <div className="flex justify-between items-center mb-4">
               <div>
@@ -212,26 +215,7 @@ export default function ListingDetail({ listing }: ListingDetailProps) {
               />
             </div>
 
-            {/* Debug info (remove in production) */}
-            <div className="text-xs text-gray-500 mb-4">
-              <p>Start Date: {startDate ? format(startDate, 'yyyy-MM-dd') : 'Not selected'}</p>
-              <p>End Date: {endDate ? format(endDate, 'yyyy-MM-dd') : 'Not selected'}</p>
-            </div>
-
             {/* Tombol Pesan */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 lg:hidden">
-              <button
-                className={`w-full py-3 rounded-lg font-medium transition-colors ${
-                  startDate && endDate
-                    ? 'bg-green-600 hover:bg-green-700 text-white'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                }`}
-                disabled={!startDate || !endDate}
-              >
-                Pesan Sekarang
-              </button>
-            </div>
-
             <div className="hidden lg:block">
               <button
                 className={`w-full mt-6 py-3 rounded-lg font-medium transition-colors ${
