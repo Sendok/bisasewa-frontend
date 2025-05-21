@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import RegistrationForm from './RegistrationForm'
+import OTPVerificationModal from './OTPVerificationModal'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -13,6 +14,7 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [showOTP, setShowOTP] = useState(false)
   const [showRegistration, setShowRegistration] = useState(false)
   const [error, setError] = useState('')
 
@@ -49,8 +51,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       return
     }
 
-    // If validation passes, proceed with registration
-    setShowRegistration(true)
+    // If validation passes, proceed to OTP verification
+    setShowOTP(true)
   }
 
   return (
@@ -171,6 +173,14 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </div>
         </Dialog>
       </Transition>
+
+      <OTPVerificationModal 
+        isOpen={isOpen && showOTP && !showRegistration}
+        onClose={onClose}
+        onBack={() => setShowOTP(false)}
+        phoneNumber={phoneNumber}
+        onSuccess={() => setShowRegistration(true)}
+      />
 
       <RegistrationForm 
         isOpen={isOpen && showRegistration}

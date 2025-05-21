@@ -4,6 +4,8 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
 interface RegistrationFormProps {
   isOpen: boolean
@@ -25,6 +27,8 @@ export default function RegistrationForm({ isOpen, onClose, onBack }: Registrati
     birthDate: '',
     email: ''
   })
+  
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [errors, setErrors] = useState<FormErrors>({})
 
   const validateForm = (): boolean => {
@@ -70,6 +74,12 @@ export default function RegistrationForm({ isOpen, onClose, onBack }: Registrati
       // Process form submission
       console.log('Form is valid', formData)
     }
+  }
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date)
+    setFormData({ ...formData, birthDate: date ? date.toISOString().split('T')[0] : '' })
+    if (errors.birthDate) setErrors({ ...errors, birthDate: undefined })
   }
 
   return (
@@ -157,16 +167,27 @@ export default function RegistrationForm({ isOpen, onClose, onBack }: Registrati
                   <div className="space-y-4">
                     <h2 className="text-lg font-medium">Tanggal lahir</h2>
                     <div className="relative">
-                      <input
-                        type="date"
-                        value={formData.birthDate}
-                        onChange={(e) => {
-                          setFormData({ ...formData, birthDate: e.target.value })
-                          if (errors.birthDate) setErrors({ ...errors, birthDate: undefined })
-                        }}
+                      <DatePicker
+                        selected={selectedDate}
+                        onChange={handleDateChange}
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="Pilih tanggal lahir"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={100}
+                        maxDate={new Date()}
                         className={`w-full p-4 border ${
                           errors.birthDate ? 'border-orange-500' : 'border-gray-200'
                         } rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none`}
+                        wrapperClassName="w-full"
+                        customInput={
+                          <input
+                            placeholder="Pilih tanggal lahir"
+                            className={`w-full p-4 border ${
+                              errors.birthDate ? 'border-orange-500' : 'border-gray-200'
+                            } rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all outline-none`}
+                          />
+                        }
                       />
                       {errors.birthDate && (
                         <p className="mt-2 text-sm text-orange-500">{errors.birthDate}</p>

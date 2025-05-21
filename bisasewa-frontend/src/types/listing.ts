@@ -1,8 +1,17 @@
 export interface Listing {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  category: string;
-  // Add other properties as needed
+  id: string
+  name: string
+  location: string
+  price: number
+  rating: number
+  description: string
+  images: string[]
+  features: string[]
+  discount?: number
+  host: {
+    name: string
+    image: string
+    rating: number
+    reviews: number
+  }
 }

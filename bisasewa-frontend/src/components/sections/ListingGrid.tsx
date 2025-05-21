@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 type Listing = {
   id: string
@@ -132,8 +133,9 @@ export default function ListingGrid() {
         {/* Grid Container */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {currentItems.map((item) => (
-            <div
+            <Link
               key={item.id}
+              href={`/listing/${item.id}`}
               className="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition group cursor-pointer border border-gray-100"
             >
               {/* Image Container */}
@@ -192,7 +194,7 @@ export default function ListingGrid() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
